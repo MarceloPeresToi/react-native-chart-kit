@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 
 import {LinearGradient, Line, Text, Defs, Stop} from 'react-native-svg'
+import { decimalAbreviate } from './numberHelpers'
 
 class AbstractChart extends Component {
   calcScaler = data => {
@@ -89,12 +90,12 @@ class AbstractChart extends Component {
       let yLabel
 
       if (count === 1) {
-        yLabel = `${yAxisLabel}${data[0].toFixed(decimalPlaces)}`
+        yLabel = `${yAxisLabel}${decimalAbreviate(data[0].toFixed(decimalPlaces))}`
       } else {
         const label = this.props.fromZero ?
           (this.calcScaler(data) / (count - 1)) * i + Math.min(...data, 0) :
           (this.calcScaler(data) / (count - 1)) * i + Math.min(...data)
-        yLabel = `${yAxisLabel}${label.toFixed(decimalPlaces)}`
+        yLabel = `${yAxisLabel}${decimalAbreviate(label.toFixed(decimalPlaces))}`
       }
 
       return (
