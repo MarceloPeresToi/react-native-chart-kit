@@ -6,9 +6,9 @@ import { decimalAbreviate } from './numberHelpers'
 class AbstractChart extends Component {
   calcScaler = data => {
     if (this.props.fromZero) {
-      return Math.max(...data, 0) - Math.min(...data, 0) || 1
+      return Math.max(...data, 0) * 1.1 - Math.min(...data, 0) || 1
     } else {
-      return Math.max(...data) - Math.min(...data) || 1
+      return Math.max(...data) * 1.1 - Math.min(...data) || 1
     }
   }
 
