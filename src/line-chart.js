@@ -87,6 +87,7 @@ class LineChart extends AbstractChart {
             dataset.data
               .map(
                 (d, i) => {
+                  if(d === null) return ''
                   const x = paddingRight + (i * (width - paddingRight)) / dataset.data.length
                   const y = (baseHeight -  this.calcHeight(d, datas, height)) / 4 * 3 + paddingTop
                   return `${x},${y}`
@@ -95,7 +96,7 @@ class LineChart extends AbstractChart {
               .join(' ') +
             ` ${paddingRight +
               ((width - paddingRight) / dataset.data.length) *
-                (dataset.data.length - 1)},${(height / 4) * 3 +
+                (dataset.data.filter(e => e || e === 0).length - 1)},${(height / 4) * 3 +
               paddingTop} ${paddingRight},${(height / 4) * 3 + paddingTop}`
           }
           fill="url(#fillShadowGradient)"
@@ -118,6 +119,7 @@ class LineChart extends AbstractChart {
     data.forEach((dataset, index) => {
       const points = dataset.data.map(
         (d, i) => {
+          if(d === null) return
           const x  = (i * (width - paddingRight)) / dataset.data.length + paddingRight
           const y = (baseHeight -  this.calcHeight(d, datas, height)) / 4 * 3 + paddingTop
           return `${x},${y}`
@@ -276,7 +278,7 @@ class LineChart extends AbstractChart {
               {withInnerLines
                 ? this.renderVerticalLines({
                     ...config,
-                    data: data.datasets[0].data,
+                    data: labels,
                     paddingTop,
                     paddingRight
                   })
